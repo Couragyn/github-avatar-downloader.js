@@ -31,7 +31,9 @@ function getRepoContributors(repoOwner, repoName, cb) {
       // only print if users are present
       if (parsed && parsed.length){
         for (user in parsed) {
+          // creats path for avatar files
           var path = 'avatars/'+ parsed[user].login;
+          // calls function to pipe image
           downloadImageByURL(parsed[user].avatar_url, path)
         }
       }
@@ -40,6 +42,7 @@ function getRepoContributors(repoOwner, repoName, cb) {
   request(options, callback);
 }
 
+// function to pip the image into a seperate folder
 function downloadImageByURL(url, filePath) {
   request.get(url)
     .on('error', function(err) {
@@ -54,11 +57,17 @@ function downloadImageByURL(url, filePath) {
     .pipe(fs.createWriteStream(filePath));
 }
 
+// Takes in user query
+var query = process.argv;
 
-
-
-getRepoContributors("jquery", "jquery", function(err, result) {
-  console.log("Errors:", err);
-  console.log("Result:", result);
-});
-
+// runs the getRepoContributors function
+if (query.length === 4){
+  getRepoContributors(query[2], query[3], function(err, result) {
+    console.log("Errors:", err);
+    console.log("Result:", result);
+  });
+}
+// If there are not two arguments, it will error our
+else {
+  console.log("Enter exactly two strings for repo owner and name");
+}
