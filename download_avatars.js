@@ -33,7 +33,7 @@ function getRepoContributors(repoOwner, repoName, cb) {
 
       //All is good. Print the body
       var parsed = JSON.parse(body);
-      console.log(parsed.login);
+
 
   }
   request(options, callback);
