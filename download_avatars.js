@@ -34,8 +34,13 @@ function getRepoContributors(repoOwner, repoName, cb) {
       //All is good. Print the body
       var parsed = JSON.parse(body);
 
-
+      if (parsed && parsed.length){
+        for (user in parsed) {
+          console.log(parsed[user].avatar_url);
+        }
+      }
   }
+
   request(options, callback);
 
 }
